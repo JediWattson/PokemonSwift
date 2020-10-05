@@ -9,23 +9,14 @@
 import SwiftUI
 
 struct ContentView: View {
-    let pokemonVM = PokemonViewModel()
     
-    @State private var pokemonList: [NameLink] = []
+    @ObservedObject var pokemonVM = ListViewModel()
     
     var body: some View {
-        List(pokemonList){pokemon in
-            PokemonRow(
-                nameLink: pokemon,
-                fetchPokemon: self.pokemonVM.fetchPokemon
-            )
+        List(pokemonVM.pokemonList){pokemon in
+            PokemonRow( nameLink: pokemon )
         }
-        .onAppear(perform: loadData)
-    }
-    func loadData(){
-        self.pokemonVM.fetchList{ data in
-            self.pokemonList.append(contentsOf: data)
-        }
+        .onAppear(perform: self.pokemonVM.fetchList)
     }
 }
 

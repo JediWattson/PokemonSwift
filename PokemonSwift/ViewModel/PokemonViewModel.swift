@@ -1,40 +1,36 @@
 //
-//  Pokemon.swift
+//  PokemonViewModel.swift
 //  PokemonSwift
 //
 //  Created by Field Employee on 10/5/20.
 //  Copyright © 2020 JediWattson. All rights reserved.
 //
 
-import Foundation
+import UIKit
 
-class PokemonViewModel {
-    var limit = 25
-    var nextPage: String = "https://pokeapi.co/api/v2/pokemon?offset=0&limit="
-    var previousPage: String?
+class PokemonViewModel: ObservableObject {
+    @Published var pokemon: Pokemon?
     
-    func fetchList(completion: @escaping ([NameLink])->()){
-        let url = "\(nextPage)\(limit)"
-        NetworkManager.shared.fetchList(url){ result in
-            switch result {
-            case .success(let list):
-                self.nextPage = list.next ?? self.nextPage
-                self.previousPage = list.previous ?? self.previousPage
-                completion(list.results)
-            case .failure(let error):
-                print(error)
-            }
-        }
-    }
-    
-    func fetchPokemon(_ url: String, completion: @escaping (Pokemon)->()){
+    func fetchPokemon(_ url: String){
         NetworkManager.shared.fetchPokemon(url){ result in
             switch result {
             case .success(let pokemon):
-                completion(pokemon)
+                DispatchQueue.main.async {
+                    self.pokemon = pokemon
+                }                
             case .failure(let error):
                 print(error)
             }
         }
+        
     }
+    
+
+   func getImage() -> UIImage {
+       guard let img = UIImage(named: "MissingNo.") else {
+           fatalError("NO IMAGE")
+       }
+       return pokemon?.image ?? img
+   }
+
 }
