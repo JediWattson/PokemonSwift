@@ -15,15 +15,31 @@ struct PokemonRow: View {
     
     @State private var pokemon: Pokemon?
     
-    
-    
     var body: some View {
         HStack{
             Image(uiImage: self.getImage())
                 .resizable()
                 .scaledToFit()
-                .frame(width: 60.0, height: 60.0, alignment: .center)
-            Text(pokemon?.name ?? "MissingNo")
+                .frame(width: 80.0, height: 80.0, alignment: .center)
+            Spacer()
+            VStack{
+                Spacer()
+                Text(pokemon?.name ?? "MissingNo")
+                    .multilineTextAlignment(.center)
+                Spacer()
+                HStack{
+                    ForEach(pokemon?.types ?? [], id: \.type.name){
+                        Text($0.type.name)
+                            .frame(width: 80.0, height: 30.0)
+                            .foregroundColor(.white)
+                            .background(TypeColors.colors[$0.type.name])
+                            .cornerRadius(15.0)
+                    }
+                }
+                Spacer()
+            }
+            Spacer()
+            
         }
         .onAppear(perform: loadData)
     }
