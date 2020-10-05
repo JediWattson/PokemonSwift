@@ -17,7 +17,8 @@ class ListViewModel: ObservableObject {
     
     @Published var endOfList = false
     @Published var pokemonList = [NameLink]()
-
+    @Published var pokemonDict = [String: Pokemon]()
+    
     func fetchList(){
         guard case let .ready(page) = pageStatus else {return}
         pageStatus = .loading(page: page)
@@ -25,18 +26,18 @@ class ListViewModel: ObservableObject {
         NetworkManager.shared.fetchList(nextPage){ result in
             switch result {
             case .success(let list):
+                
+                self.nextPage = list.next ?? self.nextPage
+                self.previousPage = list.previous ?? self.previousPage
+
                 DispatchQueue.main.async {
-                    self.nextPage = list.next ?? self.nextPage
-                    self.previousPage = list.previous ?? self.previousPage
                     self.pokemonList.append(contentsOf: list.results)
-                    
                     if self.pokemonList.count > 149 {
                         self.pageStatus = .done
                         self.endOfList = true
                     } else {
                         self.pageStatus = .ready(nextPage: page+1)
                     }
-                    
                 }
             case .failure(let error):
                 print(error)
@@ -47,6 +48,19 @@ class ListViewModel: ObservableObject {
     
     func shouldLoadMore(item : NameLink) -> Bool{
         return item.id == pokemonList.last?.id
+    }
+    
+    func fetchPokemon(_ fetch: NameLink){
+        NetworkManager.shared.fetchPokemon(fetch.url){ result in
+            switch result {
+            case .success(let pokemon):
+                DispatchQueue.main.async {
+                    self.pokemonDict[fetch.name] = pokemon
+                }
+            case .failure(let error):
+                print(error)
+            }
+        }
     }
     
 }

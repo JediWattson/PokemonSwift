@@ -21,8 +21,8 @@
 		0C668A03252B6ED100A05515 /* ListViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C668A02252B6ED100A05515 /* ListViewModel.swift */; };
 		0C668A05252B757800A05515 /* PokemonRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C668A04252B757800A05515 /* PokemonRow.swift */; };
 		0C668A0C252BB58100A05515 /* Colors.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C668A0B252BB58100A05515 /* Colors.swift */; };
-		0C668A10252BBE7700A05515 /* PokemonViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C668A0F252BBE7700A05515 /* PokemonViewModel.swift */; };
 		0C668A12252BC2DA00A05515 /* PageStatus.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C668A11252BC2DA00A05515 /* PageStatus.swift */; };
+		0C668A14252BCB7A00A05515 /* Cache.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C668A13252BCB7A00A05515 /* Cache.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -63,8 +63,8 @@
 		0C668A02252B6ED100A05515 /* ListViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListViewModel.swift; sourceTree = "<group>"; };
 		0C668A04252B757800A05515 /* PokemonRow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PokemonRow.swift; sourceTree = "<group>"; };
 		0C668A0B252BB58100A05515 /* Colors.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Colors.swift; sourceTree = "<group>"; };
-		0C668A0F252BBE7700A05515 /* PokemonViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PokemonViewModel.swift; sourceTree = "<group>"; };
 		0C668A11252BC2DA00A05515 /* PageStatus.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PageStatus.swift; sourceTree = "<group>"; };
+		0C668A13252BCB7A00A05515 /* Cache.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Cache.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -171,6 +171,7 @@
 				0C6689FD252B679700A05515 /* Manager.swift */,
 				0C6689FF252B6ACB00A05515 /* Error.swift */,
 				0C668A11252BC2DA00A05515 /* PageStatus.swift */,
+				0C668A13252BCB7A00A05515 /* Cache.swift */,
 			);
 			path = Network;
 			sourceTree = "<group>";
@@ -187,7 +188,6 @@
 			isa = PBXGroup;
 			children = (
 				0C668A02252B6ED100A05515 /* ListViewModel.swift */,
-				0C668A0F252BBE7700A05515 /* PokemonViewModel.swift */,
 			);
 			path = ViewModel;
 			sourceTree = "<group>";
@@ -337,10 +337,10 @@
 				0C6689FC252B673600A05515 /* Pokemon.swift in Sources */,
 				0C6689CB252B62E500A05515 /* SceneDelegate.swift in Sources */,
 				0C668A05252B757800A05515 /* PokemonRow.swift in Sources */,
-				0C668A10252BBE7700A05515 /* PokemonViewModel.swift in Sources */,
 				0C668A12252BC2DA00A05515 /* PageStatus.swift in Sources */,
 				0C6689CD252B62E500A05515 /* ContentView.swift in Sources */,
 				0C668A00252B6ACB00A05515 /* Error.swift in Sources */,
+				0C668A14252BCB7A00A05515 /* Cache.swift in Sources */,
 				0C6689FE252B679700A05515 /* Manager.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

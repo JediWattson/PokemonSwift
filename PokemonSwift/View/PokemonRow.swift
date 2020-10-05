@@ -9,23 +9,22 @@
 import SwiftUI
 
 struct PokemonRow: View {
-    var nameLink: NameLink
-    @ObservedObject var pokemonVM = PokemonViewModel()
+    var pokemon: Pokemon?
     
     var body: some View {
         HStack{
-            Image(uiImage: pokemonVM.getImage())
+            Image(uiImage: getImage())
                 .resizable()
                 .scaledToFit()
                 .frame(width: 80.0, height: 80.0, alignment: .center)
             Spacer()
             VStack{
                 Spacer()
-                Text(pokemonVM.pokemon?.name ?? "MissingNo")
+                Text(pokemon?.name ?? "MissingNo")
                     .multilineTextAlignment(.center)
                 Spacer()
                 HStack{
-                    ForEach(pokemonVM.pokemon?.types ?? [], id: \.type.name){
+                    ForEach(pokemon?.types ?? [], id: \.type.name){
                         Text($0.type.name)
                             .frame(width: 80.0, height: 30.0)
                             .foregroundColor(.white)
@@ -38,8 +37,13 @@ struct PokemonRow: View {
             Spacer()
             
         }
-        .onAppear(perform: {
-            self.pokemonVM.fetchPokemon(self.nameLink.url)
-        })
-    }    
+    }
+    
+    func getImage() -> UIImage {
+        guard let img = UIImage(named: "MissingNo.") else {
+            fatalError("NO IMAGE")
+        }
+        return pokemon?.image ?? img
+    }
+
 }
