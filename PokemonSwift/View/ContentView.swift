@@ -15,6 +15,13 @@ struct ContentView: View {
     var body: some View {
         List(pokemonVM.pokemonList){pokemon in
             PokemonRow( nameLink: pokemon )
+            .onAppear(perform: {
+                if !self.pokemonVM.endOfList {
+                    if self.pokemonVM.shouldLoadMore(item: pokemon){
+                        self.pokemonVM.fetchList()
+                    }
+                }
+            })
         }
         .onAppear(perform: self.pokemonVM.fetchList)
     }
