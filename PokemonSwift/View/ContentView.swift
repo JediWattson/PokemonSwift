@@ -11,24 +11,24 @@ import SwiftUI
 struct ContentView: View {
     
     @ObservedObject var pokemonVM = ListViewModel()
-    
     var body: some View {
         NavigationView{            
-            List(pokemonVM.pokemonList){pokemonNL in
+            List(pokemonVM.pokemonList){nameLink in
                 NavigationLink(
                     destination: PokemonDetail(
-                        pokemon: self.pokemonVM.pokemonDict[pokemonNL.name]
+                        pokemon: self.pokemonVM.getPokemon(nameLink.name)
                     )
                 ){
-                    PokemonRow( pokemon: self.pokemonVM.pokemonDict[pokemonNL.name] )
+                    PokemonRow(
+                        pokemon: self.pokemonVM.getPokemon(nameLink.name)
+                    )
                 }
                 .onAppear(perform: {
-                    self.pokemonVM.handleAppear(pokemon: pokemonNL)
+                    self.pokemonVM.handleAppear(pokemon: nameLink)
                 })
             }
-            .onAppear(perform: self.pokemonVM.fetchList)
-            .navigationBarTitle("Pokemon!", displayMode: .inline)
-        
+                .onAppear(perform: self.pokemonVM.fetchList)
+                .navigationBarTitle("Pokemon!", displayMode: .inline)
         }
     }
 }

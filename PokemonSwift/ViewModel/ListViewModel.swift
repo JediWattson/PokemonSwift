@@ -73,4 +73,8 @@ class ListViewModel: ObservableObject {
             }
         }
     }
+    
+    func getPokemon(_ pokemon: String) -> Pokemon? {
+        return self.pokemonDict[pokemon]
+    }
 }
