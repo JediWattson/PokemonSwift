@@ -13,20 +13,23 @@ struct ContentView: View {
     @ObservedObject var pokemonVM = ListViewModel()
     
     var body: some View {
-        List(pokemonVM.pokemonList){pokemonNL in            
-            PokemonRow( pokemon:  self.pokemonVM.pokemonDict[pokemonNL.name] )
+        NavigationView{            
+            List(pokemonVM.pokemonList){pokemonNL in
+                NavigationLink(
+                    destination: PokemonDetail(
+                        pokemon: self.pokemonVM.pokemonDict[pokemonNL.name]
+                    )
+                ){
+                    PokemonRow( pokemon: self.pokemonVM.pokemonDict[pokemonNL.name] )
+                }
                 .onAppear(perform: {
-                    if self.pokemonVM.pokemonDict[pokemonNL.name] == nil {
-                        self.pokemonVM.fetchPokemon(pokemonNL)
-                    }
-                    if !self.pokemonVM.endOfList {
-                        if self.pokemonVM.shouldLoadMore(item: pokemonNL){
-                            self.pokemonVM.fetchList()
-                        }
-                    }
+                    self.pokemonVM.handleAppear(pokemon: pokemonNL)
                 })
+            }
+            .onAppear(perform: self.pokemonVM.fetchList)
+            .navigationBarTitle("Pokemon!", displayMode: .inline)
+        
         }
-        .onAppear(perform: self.pokemonVM.fetchList)
     }
 }
 

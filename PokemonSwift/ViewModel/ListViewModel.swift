@@ -63,4 +63,14 @@ class ListViewModel: ObservableObject {
         }
     }
     
+    func handleAppear(pokemon: NameLink){
+        if self.pokemonDict[pokemon.name] == nil {
+            self.fetchPokemon(pokemon)
+        }
+        if !self.endOfList {
+            if self.shouldLoadMore(item: pokemon){
+                self.fetchList()
+            }
+        }
+    }
 }
