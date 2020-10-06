@@ -47,14 +47,18 @@ struct Types: Codable {
     }
 }
 
-struct Ability: Codable {
+struct Ability: Codable, Identifiable {
+    var id = UUID()
+    
     var ability: NameLink
     enum CodingKeys: String, CodingKey {
         case ability
     }
 }
 
-struct Move: Codable {
+struct Move: Codable, Identifiable {
+    var id = UUID()
+    
     var move: NameLink
     enum CodingKeys: String, CodingKey {
         case move

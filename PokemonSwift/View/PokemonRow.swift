@@ -20,8 +20,9 @@ struct PokemonRow: View {
             Spacer()
             VStack{
                 Spacer()
-                Text(pokemon?.name ?? "MissingNo")
+                Text(pokemon?.name.capitalized ?? "MissingNo")
                     .multilineTextAlignment(.center)
+                    .font(Font.custom("PokemonHollowNormal", size: 22))
                 Spacer()
                 HStack{
                     ForEach(pokemon?.types ?? [], id: \.type.name){

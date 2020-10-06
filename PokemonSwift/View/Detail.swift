@@ -15,40 +15,58 @@ struct PokemonDetail: View {
     var body: some View {
         Group{
             if verticalSizeClass == .regular {
-                VStack{
+                VStack(alignment: .center){
+                    Text(pokemon?.name.capitalized ?? "MissingNo")
+                        .multilineTextAlignment(.center)
+                        .font(Font.custom("PokemonHollowNormal", size: 33))
                     Image(uiImage: getImage())
                         .resizable()
                         .scaledToFit()
-                    //                .frame(width: 80.0, height: 80.0, alignment: .center)
-                    Spacer()
-                    VStack{
-                        Spacer()
-                        Text(pokemon?.name ?? "MissingNo")
-                            .multilineTextAlignment(.center)
-                        Spacer()
-                        HStack{
-                            ForEach(pokemon?.types ?? [], id: \.type.name){
-                                Text($0.type.name)
-                                    .frame(width: 80.0, height: 30.0)
-                                    .foregroundColor(.white)
-                                    .background(TypeColors.colors[$0.type.name])
-                                    .cornerRadius(15.0)
+
+                    HStack{
+                        ForEach(pokemon?.types ?? [], id: \.type.name){
+                            Text($0.type.name)
+                                .frame(width: 80.0, height: 30.0)
+                                .foregroundColor(.white)
+                                .background(TypeColors.colors[$0.type.name])
+                                .cornerRadius(15.0)
+                        }
+                    }
+                    
+                    Spacer().frame(height: 16)
+                    
+                    HStack{
+                        VStack{
+                            Text("Abilities")
+                                .multilineTextAlignment(.center)
+
+                            List(pokemon?.abilities ?? []){ability in
+                                Text(ability.ability.name)
                             }
                         }
-                        Spacer()
+                        VStack{
+                            Text("Moves")
+                                .multilineTextAlignment(.center)
+
+                            List(pokemon?.moves ?? []){move in
+                                Text(move.move.name)
+                            }
+                        }
+
                     }
-                    Spacer()
                 }
             } else {
                 HStack{
-                    Image(uiImage: getImage())
-                       .resizable()
-                       .scaledToFit()
-                    
                     VStack{
-                        Text(pokemon?.name ?? "MissingNo")
+
+                        Image(uiImage: getImage())
+                           .resizable()
+                           .scaledToFit()
+                        Text(pokemon?.name.capitalized ?? "MissingNo")
                             .multilineTextAlignment(.center)
-                        Spacer()
+                            .font(Font.custom("PokemonHollowNormal", size: 33))
+                        Spacer().frame(height: 8)
+
                         HStack{
                             ForEach(pokemon?.types ?? [], id: \.type.name){
                                 Text($0.type.name)
@@ -58,14 +76,32 @@ struct PokemonDetail: View {
                                     .cornerRadius(15.0)
                             }
                         }
+                        Spacer()
+
                     }
                     Spacer()
+                    VStack{
+                        Text("Abilities")
+                            .multilineTextAlignment(.center)
 
+                        List(pokemon?.abilities ?? []){ability in
+                            Text(ability.ability.name)
+                        }
+                    }
+                    VStack{
+                        Text("Moves")
+                            .multilineTextAlignment(.center)
+
+                        List(pokemon?.moves ?? []){move in
+                            Text(move.move.name)
+                        }
+                    }
                 }
             }
         }
+        .padding(8)
     }
-    
+
     func getImage() -> UIImage {
         guard let img = UIImage(named: "MissingNo.") else {
             fatalError("NO IMAGE")
